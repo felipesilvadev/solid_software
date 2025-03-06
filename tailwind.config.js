@@ -4,7 +4,17 @@ module.exports = {
 
   presets: [require('nativewind/preset')],
   theme: {
-    extend: {},
+    extend: {
+      colors: {
+        primary: '#141824',
+        secondary: '#F05314',
+        text: '#F4F3F0',
+      },
+      fontFamily: {
+        bambino: ['BambinoNew-Regular'],
+        'bambino-bold': ['BambinoNew-Bold'],
+      },
+    },
   },
   plugins: [],
 };

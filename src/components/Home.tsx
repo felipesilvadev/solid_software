@@ -6,5 +6,5 @@ export const Home = ({ children }: PropsWithChildren) => {
 };
 
 const styles = {
-  container: 'flex flex-1 bg["#141824"]',
+  container: 'flex flex-1 bg-primary',
 };
