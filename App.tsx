@@ -5,7 +5,7 @@ import { useEffect } from 'react';
 
 import './global.css';
 
-import { Home } from '~/components/Home';
+import { Home } from '~/screens/Home';
 
 SplashScreen.preventAutoHideAsync();
 
