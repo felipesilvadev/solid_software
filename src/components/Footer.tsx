@@ -1,5 +1,5 @@
-import { memo } from 'react';
-import { Alert, View } from 'react-native';
+import { memo, useMemo } from 'react';
+import { Alert, Dimensions, Platform, View } from 'react-native';
 
 import { Button } from './Button';
 
@@ -14,6 +14,8 @@ export const Footer = memo(function Footer({
   handleResetScreen,
   handleChangeCustomText,
 }: Props) {
+  const { height } = Dimensions.get('window');
+
   const handleChangeText = () => {
     Alert.prompt('Type a custom text', undefined, (text) => {
       if (text) {
@@ -22,8 +24,26 @@ export const Footer = memo(function Footer({
     });
   };
 
+  const footerPaddingBottom = useMemo(() => {
+    if (Platform.OS === 'android') {
+      return 16;
+    }
+
+    if (Platform.OS === 'ios') {
+      const isSmallDevice = height < 700;
+
+      if (isSmallDevice) return 16;
+
+      return 8;
+    }
+  }, []);
+
   return (
-    <View className={styles.container}>
+    <View
+      className={styles.container}
+      style={{
+        paddingBottom: footerPaddingBottom,
+      }}>
       <Button color={contrastColor} text="Reset" onPress={handleResetScreen} />
       <Button color={contrastColor} text="Edit text" onPress={handleChangeText} />
     </View>
