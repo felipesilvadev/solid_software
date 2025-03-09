@@ -1,7 +1,8 @@
-import { memo, useMemo } from 'react';
-import { Alert, Dimensions, Platform, View } from 'react-native';
+import { memo, useMemo, useState } from 'react';
+import { Dimensions, Platform, View } from 'react-native';
 
 import { Button } from './Button';
+import { ModalPrompt } from './ModalPrompt';
 
 type Props = {
   contrastColor: string;
@@ -16,13 +17,7 @@ export const Footer = memo(function Footer({
 }: Props) {
   const { height } = Dimensions.get('window');
 
-  const handleChangeText = () => {
-    Alert.prompt('Type a custom text', undefined, (text) => {
-      if (text) {
-        handleChangeCustomText(text);
-      }
-    });
-  };
+  const [showPrompt, setShowPrompt] = useState(false);
 
   const footerPaddingBottom = useMemo(() => {
     if (Platform.OS === 'android') {
@@ -45,7 +40,16 @@ export const Footer = memo(function Footer({
         paddingBottom: footerPaddingBottom,
       }}>
       <Button color={contrastColor} text="Reset" onPress={handleResetScreen} />
-      <Button color={contrastColor} text="Edit text" onPress={handleChangeText} />
+      <Button color={contrastColor} text="Edit text" onPress={() => setShowPrompt(true)} />
+
+      <ModalPrompt
+        visible={showPrompt}
+        onCancel={() => setShowPrompt(false)}
+        onSubmit={(text) => {
+          handleChangeCustomText(text);
+          setShowPrompt(false);
+        }}
+      />
     </View>
   );
 });
