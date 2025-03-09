@@ -1,14 +1,19 @@
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useCallback, useMemo, useState } from 'react';
 import { Text, TouchableWithoutFeedback, View } from 'react-native';
 
 import { Footer } from '~/components/Footer';
+import { Hint } from '~/components/Hint';
 import { Screen } from '~/components/Screen';
+import { ALREADY_SEEN_HINT } from '~/storage/localStorage';
 
 export const Home = () => {
   const [customText, setCustomText] = useState('Hello there');
   const [bgColor, setBgColor] = useState('');
 
-  const handleResetScreen = useCallback(() => {
+  const handleResetScreen = useCallback(async () => {
+    await AsyncStorage.removeItem(ALREADY_SEEN_HINT);
+
     setBgColor('');
     setCustomText('Hello there');
   }, []);
@@ -54,6 +59,8 @@ export const Home = () => {
         handleResetScreen={handleResetScreen}
         handleChangeCustomText={handleChangeCustomText}
       />
+
+      <Hint />
     </Screen>
   );
 };
