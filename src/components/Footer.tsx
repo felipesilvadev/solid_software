@@ -1,5 +1,7 @@
 import { memo } from 'react';
-import { Alert, Pressable, Text, View } from 'react-native';
+import { Alert, View } from 'react-native';
+
+import { Button } from './Button';
 
 type Props = {
   contrastColor: string;
@@ -22,19 +24,12 @@ export const Footer = memo(function Footer({
 
   return (
     <View className={styles.container}>
-      <Pressable className={`${styles.button} border-${contrastColor}`} onPress={handleResetScreen}>
-        <Text className={`${styles.text} text-${contrastColor}`}>Reset</Text>
-      </Pressable>
-
-      <Pressable className={`${styles.button} border-${contrastColor}`} onPress={handleChangeText}>
-        <Text className={`${styles.text} text-${contrastColor}`}>Edit text</Text>
-      </Pressable>
+      <Button color={contrastColor} text="Reset" onPress={handleResetScreen} />
+      <Button color={contrastColor} text="Edit text" onPress={handleChangeText} />
     </View>
   );
 });
 
 const styles = {
   container: 'flex flex-row justify-between px-4',
-  button: 'border rounded-sm px-7 py-2 items-center justify-center',
-  text: 'font-bambino',
 };

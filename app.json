@@ -21,8 +21,7 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true,
-      "bundleIdentifier": "com.nuvens.solid-software"
+      "supportsTablet": true
     },
     "android": {
       "adaptiveIcon": {
